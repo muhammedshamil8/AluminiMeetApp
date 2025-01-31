@@ -11,7 +11,7 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import ImageCropper from "@/components/ImageCropper/imageCropper";
-import { toPng } from 'html-to-image';
+import html2canvas from 'html2canvas';
 import { toast } from "sonner";
 
 function GeneratePoster() {
@@ -43,60 +43,101 @@ function GeneratePoster() {
     };
 
     const handleDownload = () => {
-        if (posterRef.current) {
-            toPng(posterRef.current, { 
-                quality: 6,
-                pixelRatio: 4 
-            }).then(dataUrl => {
+        const poster = document.getElementById('posterID');
+        const rotatedElement = document.querySelector(".handwriting");
+        rotatedElement.style.transform = "rotate(-3.5deg)";
+        const rotatedElement2 = document.querySelector(".handwriting2");
+        rotatedElement2.style.transform = "rotate(-0.1deg)";
+        html2canvas(poster,
+            {
+                scale: 5,
+                useCORS: true
+            }).then((canvas) => {
+                const imageUrl = canvas.toDataURL('image/png');
                 const link = document.createElement('a');
-                link.download = `${name}_poster.png`;
-                link.href = dataUrl;
+                link.href = imageUrl;
+                if (name) {
+                    link.download = `${name}_poster.png`;
+                } else {
+                    link.download = 'poster.png';
+                }
                 link.click();
-            }).catch(error => {
-                console.error('Download failed', error);
-                toast.error('Failed to download poster');
             });
-        }
+    };
+
+    const handleShare = async () => {
+        const poster = document.getElementById('posterID');
+        const rotatedElement = document.querySelector(".handwriting");
+        rotatedElement.style.transform = "rotate(-3.5deg)";
+        const rotatedElement2 = document.querySelector(".handwriting2");
+        rotatedElement2.style.transform = "rotate(-0.1deg)";
+        html2canvas(poster,
+            {
+                scale: 5,
+                useCORS: true
+            }).then((canvas) => {
+                canvas.toBlob(async (blob) => {
+                    if (!blob) return;
+
+                    const file = new File([blob], 'poster.png', { type: 'image/png' });
+
+                    if (navigator.share) {
+                        try {
+                            await navigator.share({
+                                title: "Alumini Meet",
+                                url: 'https://alumini-meet-app-theta.vercel.app/',
+                                text: "Check out the poster I created on Alumini Meet",
+                                files: [file],
+                            });
+                        } catch (err) {
+                            console.error('Error sharing:', err);
+                        }
+                    } else {
+                        console.warn('Web Share API not supported or file sharing not supported');
+                        alert('Sorry, file sharing is not supported on your device please download the image and share it manually');
+                    }
+                });
+            });
     };
 
     return (
-        <div className="relative min-h-screen flex flex-col items-center justify-center p-4">
-            <div className='absolute left-4 top-4 md:left-6 md:top-16 z-10'>
+        <div className="relative  flex-1 flex flex-col items-center justify-around p-4 gap-10">
+            <div className='flex items-start justify-start w-full px-6 my-16'>
                 <BackButton label="Generate Poster" />
             </div>
-            
-            <div className='relative w-full max-w-md mx-auto flex flex-col items-center gap-4'>
-                <div ref={posterRef} className="relative w-full max-w-xs mx-auto">
-                    <img 
-                        src={Poster} 
-                        alt="Poster Template" 
+
+            <div className='relative w-full max-w-md mx-auto flex flex-col items-center gap-4 flex-grow '>
+                <div ref={posterRef} className="relative w-full max-w-xs mx-auto overflow-hidden" id="posterID">
+                    <img
+                        src={Poster}
+                        alt="Poster Template"
                         className="w-full h-auto object-contain"
                     />
-                    
+
                     {croppedImage && (
                         <div className="absolute top-[50%] left-[29.5%] transform -translate-x-1/2 -translate-y-1/2 w-[32.5%] text-center">
                             <img
                                 src={croppedImage}
                                 alt="Cropped"
-                                className="w-full h-[120px]  object-cover rounded-md -rotate-[3.7deg]"
+                                className="w-full h-[120px]  object-cover rounded-md !-rotate-[3.6deg] handwriting2"
                             />
-                            
+
                         </div>
-                        
+
                     )}
 
-                <p className={`-rotate-[3.7deg] handwriting absolute top-[73%] left-[29.5%] transform -translate-x-1/2 -translate-y-1/2  ${name.length > 10 ? 'text-[8px]' : 'text-sm'} md:text-base `}>{name}</p>
+                    <p className={`!-rotate-[3.7deg] handwriting absolute top-[73%] left-[29.5%] transform -translate-x-1/2 -translate-y-1/2  ${name.length > 10 ? 'text-[8px]' : 'text-sm'} md:text-base `}>{name}</p>
 
                 </div>
 
                 <Input
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    type="text" 
-                    className="!pl-6 !rounded-full !bg-[#DEEEF7] placeholder:text-gray-400 w-full max-w-xs !outline-none !ring-0 !border-[#185273]" 
-                    placeholder="Your Name" 
+                    type="text"
+                    className="!pl-6 !rounded-full !bg-[#DEEEF7] placeholder:text-gray-400 w-full max-w-xs !outline-none !ring-0 !border-[#185273]"
+                    placeholder="Your Name"
                 />
-                
+
                 <Input
                     disabled={!name}
                     className="hidden"
@@ -106,25 +147,25 @@ function GeneratePoster() {
                     accept="image/png, image/jpeg"
                     onChange={handleFileChange}
                 />
-
-                {name && croppedImage && (
-            
-                <button 
-                    onClick={handleDownload} 
-                    className='uppercase text-white bg-[#0078B6] disabled:bg-[#0078B6]/60 text-center w-full max-w-xs py-2 rounded-full font-semibold cursor-pointer'
-                >
-                    Download 
-                </button>
-                )}
-                
-                <button 
-                    disabled={!name} 
-                    onClick={() => document.getElementById("fileInput").click()} 
-                    className='uppercase text-white bg-[#0078B6] disabled:bg-[#0078B6]/60 text-center w-full max-w-xs py-2 rounded-full font-semibold cursor-pointer'
+                <button
+                    disabled={!name}
+                    onClick={() => document.getElementById("fileInput").click()}
+                    className='uppercase text-white bg-[#0078B6] disabled:bg-[#0078B6]/60 text-center w-full max-w-xs py-2 rounded-full font-semibold cursor-pointer transition-all ease-in-out hover:bg-[#0078B6]/70 hover:shadow-lg'
                 >
                     UPLOAD PHOTO
                 </button>
 
+                {name && croppedImage && (
+                    <>
+                        <button
+                            onClick={handleDownload}
+                            className='uppercase text-white bg-[#0078B6] disabled:bg-[#0078B6]/60 text-center w-full max-w-xs py-2 rounded-full font-semibold cursor-pointer transition-all ease-in-out hover:bg-[#0078B6]/70 hover:shadow-lg' 
+                        >
+                            Download
+                        </button>
+                        <button onClick={handleShare} className='ppercase text-white bg-[#0078B6] disabled:bg-[#0078B6]/60 text-center w-full max-w-xs py-2 rounded-full font-semibold cursor-pointer transition-all ease-in-out hover:bg-[#0078B6]/70 hover:shadow-lg' >Share</button>
+                    </>
+                )}
 
             </div>
 

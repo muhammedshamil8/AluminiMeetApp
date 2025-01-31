@@ -136,11 +136,11 @@ function Registration() {
     }
 
     return (
-        <div className="relative h-full flex-1 flex items-center justify-center flex-col w-full">
-            <div className='absolute left-6 top-16'>
+        <div className="relative h-full flex-1 flex items-center justify-around flex-col w-full gap-10">
+            <div className='flex items-start justify-start w-full px-6 my-20'>
                 <BackButton label="Registration" />
             </div>
-            <div className='bg-white p-6 w-full mt-10' ref={parent}>
+            <div className='bg-white p-6 w-full flex-grow' ref={parent}>
 
                 <Form {...form} ref={parent}>
                     <form onSubmit={form.handleSubmit(register)} className="space-y-4 w-full max-w-[350px] mx-auto" ref={parent}>
@@ -148,11 +148,10 @@ function Registration() {
                         <FormField
                             control={form.control}
                             name="Name"
-                            ref={parent}
                             render={({ field }) => (
                                 <FormItem ref={parent}>
                                     <FormLabel>Name</FormLabel>
-                                    <FormControl ref={parent}>
+                                    <FormControl>
                                         <Input className="!pl-6 !rounded-full !bg-[#DEEEF7] placeholder:text-gray-400 !outline-none !ring-0 !border-[#185273]" placeholder="Full Name" {...field} />
                                     </FormControl>
                                     <FormMessage />
@@ -167,7 +166,7 @@ function Registration() {
                             render={({ field }) => (
                                 <FormItem ref={parent}>
                                     <FormLabel>Phone Number</FormLabel>
-                                    <FormControl>
+                                    <FormControl >
                                         <Input className="!pl-6 !rounded-full !bg-[#DEEEF7] placeholder:text-gray-400 !outline-none !ring-0 !border-[#185273]" placeholder="Mobile Number" {...field} />
                                     </FormControl>
                                     <FormMessage />
@@ -290,7 +289,7 @@ function Registration() {
                             )}
                         />
                         <div className='mx-auto mt-8 flex items-center justify-center'>
-                            <Button type="submit" className="uppercase !text-white !bg-[#0078B6] !text-center !mx-auto !w-full !max-w-[340px] !py-4 !rounded-full !font-semibold !cursor-pointer disabled:!bg-[#0078B6]/70 !h-[40px]" disabled={loading}>
+                            <Button type="submit" className="uppercase !text-white !bg-[#0078B6] !text-center !mx-auto !w-full !max-w-[340px] !py-4 !rounded-full !font-semibold !cursor-pointer disabled:!bg-[#0078B6]/70 !h-[40px] transition-all ease-in-out hover:bg-[#0078B6]/70 hover:shadow-lg" disabled={loading}>
                                 {loading ? "Creating..." : "Register Now"}
                             </Button>
                         </div>
@@ -315,10 +314,10 @@ function Registration() {
                         </DialogDescription>
                     </DialogHeader>
                     <div className='flex flex-col gap-4 items-center justify-center my-8 w-full'>
-                        <button onClick={() => handleJoinWhatsapp()} className='uppercase text-white bg-[#0078B6] text-center w-full max-w-[260px] py-2 rounded-full font-semibold cursor-pointer'>
+                        <button onClick={() => handleJoinWhatsapp()} className='uppercase text-white bg-[#0078B6] text-center w-full max-w-[260px] py-2 rounded-full font-semibold cursor-pointer transition-all ease-in-out hover:bg-[#0078B6]/70 hover:shadow-lg'>
                             join whatsapp
                         </button>
-                        <button onClick={() => handleNaviagtion('/generateposter')} className='uppercase text-white bg-[#0078B6] text-center w-full max-w-[260px] py-2 rounded-full font-semibold cursor-pointer'>
+                        <button onClick={() => handleNaviagtion('/generateposter')} className='uppercase text-white bg-[#0078B6] text-center w-full max-w-[260px] py-2 rounded-full font-semibold cursor-pointer transition-all ease-in-out hover:bg-[#0078B6]/70 hover:shadow-lg'>
                             Generate Poster
                         </button>
                     </div>

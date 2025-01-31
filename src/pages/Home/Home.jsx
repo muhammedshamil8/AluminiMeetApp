@@ -16,14 +16,14 @@ function Home() {
                     <img src={TopElement} className='absolute left-0 right-0 top-0 w-full   ' />
                 </div>
             </div>
-            <div className='mt-10'>
+            <div className='mt-20 min-h-[300px]'>
                 <img src={Hero} className='mx-auto' />
             </div>
-            <div className='flex flex-col gap-4 items-center justify-center mt-20 w-full'>
-                <button onClick={() => handleNaviagtion('/register')} className='uppercase text-white bg-[#0078B6] text-center w-full max-w-[260px] py-2 rounded-full font-semibold cursor-pointer'>
+            <div className='flex flex-col gap-4 items-center justify-center mt-20 w-full mb-10'>
+                <button onClick={() => handleNaviagtion('/register')} className='uppercase text-white bg-[#0078B6] text-center w-full max-w-[260px] py-2 rounded-full font-semibold cursor-pointer transition-all ease-in-out hover:bg-[#0078B6]/70 hover:shadow-lg'>
                     Register Now
                 </button>
-                <button onClick={() => handleNaviagtion('/generateposter')} className='uppercase text-white bg-[#0078B6] text-center w-full max-w-[260px] py-2 rounded-full font-semibold cursor-pointer'>
+                <button onClick={() => handleNaviagtion('/generateposter')} className='uppercase text-white bg-[#0078B6] text-center w-full max-w-[260px] py-2 rounded-full font-semibold cursor-pointer transition-all ease-in-out hover:bg-[#0078B6]/70 hover:shadow-lg'>
                     Generate Poster
                 </button>
             </div>

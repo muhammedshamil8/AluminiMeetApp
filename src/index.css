@@ -10,3 +10,9 @@
 .handwriting{
   font-family: "Playwrite IN", serif;
 }
+
+@layer base {
+  img {
+    @apply inline-block;
+  }
+}
