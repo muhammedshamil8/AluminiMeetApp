@@ -1,7 +1,6 @@
 import React from 'react'
 import Hero from '@/assets/hero.svg'
 import TopElement from '@/assets/elementtop.svg'
-import BottomElement from '@/assets/elementbottom.svg'
 import { useNavigate } from 'react-router-dom'
 
 function Home() {
@@ -12,8 +11,12 @@ function Home() {
     }
     return (
         <div className='relative h-full flex-1 flex items-center justify-center flex-col w-full '>
-            <img src={TopElement} className='absolute left-0 right-0 top-0 w-full' />
-            <div className=''>
+            <div className='max-h-[70px]  w-full absolute top-0'>
+                <div className='flex justify-start items-start relative'>
+                    <img src={TopElement} className='absolute left-0 right-0 top-0 w-full   ' />
+                </div>
+            </div>
+            <div className='mt-10'>
                 <img src={Hero} className='mx-auto' />
             </div>
             <div className='flex flex-col gap-4 items-center justify-center mt-20 w-full'>
@@ -24,9 +27,8 @@ function Home() {
                     Generate Poster
                 </button>
             </div>
-           
-            <img src={BottomElement} className='absolute w-full bottom-6' />
-        </div>
+
+        </div >
     )
 }
 

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import BackButton from '@/components/BackButton';
-import BottomElement from '@/assets/elementbottom.svg'
 import Poster from '@/assets/poster.png'
 import { Input } from "@/components/ui/input";
 import {
@@ -52,7 +51,7 @@ function GeneratePoster() {
             <div className='absolute left-6  top-16 '>
                 <BackButton label="Generate Poster" />
             </div>
-            <div className=' relative w-full flex items-center justify-start flex-col gap-4 p-6 max-w-[500px]'>
+            <div className=' relative w-full flex items-center justify-start flex-col gap-4 p-6 max-w-[500px] mt-10'>
                 <img src={Poster} className='mx-auto' />
                 {croppedImage && (
                     <div className="flex flex-col items-center gap-2 absolute top-[165px] left-[83px]">
@@ -96,7 +95,6 @@ function GeneratePoster() {
                 />
             </Dialog>
 
-            <img src={BottomElement} className='absolute w-full bottom-6' />
         </div>
     )
 }

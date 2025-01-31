@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { createRecord } from "@/utils/airtableService";
 import BackButton from '@/components/BackButton';
-import BottomElement from '@/assets/elementbottom.svg';
 import SuccesImg from '@/assets/succes.svg';
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -171,7 +170,7 @@ function Registration() {
             <div className='absolute left-6 top-16'>
                 <BackButton label="Registration" />
             </div>
-            <div className='bg-white p-6 w-full' ref={parent}>
+            <div className='bg-white p-6 w-full mt-10' ref={parent}>
 
                 <Form {...form} ref={parent}>
                     <form onSubmit={form.handleSubmit(register)} className="space-y-4 w-full max-w-[350px] mx-auto" ref={parent}>
@@ -358,7 +357,6 @@ function Registration() {
 
 
 
-            <img src={BottomElement} className='absolute w-full bottom-6' />
         </div>
     );
 }
