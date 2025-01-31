@@ -54,65 +54,35 @@ const formSchema = z.object({
 
 const batches = ["Batch A", "Batch B", "Batch C", "Batch D"];
 const department =
-    [
-        {
-            value: "BA Eco"
-        },
-        {
-            value: "BA Eng"
-        },
-        {
-            value: "BA WAS"
-        },
-        {
-            value: "BBA"
-        },
-        {
-            value: "BSc Biotech"
-        },
-        {
-            value: "BSc Biochem"
-        },
-        {
-            value: "BSc CS"
-        },
-        {
-            value: "BSc Maths and Physics"
-        },
-        {
-            value: "BSc Micro"
-        },
-        {
-            value: "B.Com CA"
-        },
-        {
-            value: "B.Com Co-op"
-        },
-        {
-            value: "BVoc Islamic finance"
-        },
-        {
-            value: "BVoc Logi"
-        },
-        {
-            value: "BVoc Prof"
-        },
-        {
-            value: "MA Eco"
-        },
-        {
-            value: "MA Eng"
-        },
-        {
-            value: "MA History"
-        },
-        {
-            value: "MSc Micro"
-        },
-        {
-            value: "M.com"
-        },
-    ]
+[
+    {
+        "value": "PDC / Pre Degree"
+    },
+    {
+        "value": "Commerce"
+    },
+    {
+        "value": "BBA"
+    },
+    {
+        "value": "BA (All Departments)"
+    },
+    {
+        "value": "BSc (All Departments)"
+    },
+    {
+        "value": "BVoc (All Departments)"
+    },
+    {
+        "value": "PG"
+    }
+]
+
+function generateYears(start, end) {
+    return Array.from({ length: end - start + 1 }, (_, i) => start + i);
+}
+
+
 
 function Registration() {
     const [loading, setLoading] = useState(false);
@@ -211,7 +181,7 @@ function Registration() {
                             name="Batch"
                             render={({ field }) => (
                                 <FormItem ref={parent}>
-                                    <FormLabel>Batch</FormLabel>
+                                    <FormLabel>Pass out year</FormLabel>
                                     <Popover>
                                         <PopoverTrigger asChild>
                                             <FormControl>
@@ -224,18 +194,18 @@ function Registration() {
                                                         !field.value && "text-muted-foreground"
                                                     )}
                                                 >
-                                                    {field.value || "Select Batch"}
+                                                    {field.value || "Select Year"}
                                                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                                 </Button>
                                             </FormControl>
                                         </PopoverTrigger>
                                         <PopoverContent className="w-full p-0">
                                             <Command>
-                                                <CommandInput placeholder="Search batch..." />
+                                                <CommandInput placeholder="Search year..." />
                                                 <CommandList>
-                                                    <CommandEmpty>No batch found.</CommandEmpty>
+                                                    <CommandEmpty>Not found.</CommandEmpty>
                                                     <CommandGroup>
-                                                        {batches.map((batch) => (
+                                                        {generateYears(1982, 2024).map((batch) => (
                                                             <CommandItem
                                                                 key={batch}
                                                                 onSelect={() => {
