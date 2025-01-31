@@ -74,15 +74,19 @@ function GeneratePoster() {
                     />
                     
                     {croppedImage && (
-                        <div className="absolute top-[54.1%] left-[29.5%] transform -translate-x-1/2 -translate-y-1/2 w-[32.5%] text-center">
+                        <div className="absolute top-[50%] left-[29.5%] transform -translate-x-1/2 -translate-y-1/2 w-[32.5%] text-center">
                             <img
                                 src={croppedImage}
                                 alt="Cropped"
-                                className="w-full h-[120px]  object-cover rounded-lg -rotate-4"
+                                className="w-full h-[120px]  object-cover rounded-md -rotate-[3.7deg]"
                             />
-                            <p className="-rotate-6 handwriting text-sm md:text-base ">{name}</p>
+                            
                         </div>
+                        
                     )}
+
+                <p className={`-rotate-[3.7deg] handwriting absolute top-[73%] left-[29.5%] transform -translate-x-1/2 -translate-y-1/2  ${name.length > 10 ? 'text-[8px]' : 'text-sm'} md:text-base `}>{name}</p>
+
                 </div>
 
                 <Input
@@ -120,8 +124,6 @@ function GeneratePoster() {
                 >
                     UPLOAD PHOTO
                 </button>
-
-               
 
 
             </div>

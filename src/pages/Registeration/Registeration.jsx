@@ -79,7 +79,7 @@ const department =
 ]
 
 function generateYears(start, end) {
-    return Array.from({ length: end - start + 1 }, (_, i) => start + i);
+    return Array.from({ length: end - start + 1 }, (_, i) => (start + i).toString());
 }
 
 
@@ -315,10 +315,10 @@ function Registration() {
                         </DialogDescription>
                     </DialogHeader>
                     <div className='flex flex-col gap-4 items-center justify-center my-8 w-full'>
-                        <button onClick={() => handleNaviagtion('/join_whatsapp')} className='uppercase text-white bg-[#0078B6] text-center w-full max-w-[260px] py-2 rounded-full font-semibold cursor-pointer'>
+                        <button onClick={() => handleJoinWhatsapp()} className='uppercase text-white bg-[#0078B6] text-center w-full max-w-[260px] py-2 rounded-full font-semibold cursor-pointer'>
                             join whatsapp
                         </button>
-                        <button onClick={() => handleJoinWhatsapp()} className='uppercase text-white bg-[#0078B6] text-center w-full max-w-[260px] py-2 rounded-full font-semibold cursor-pointer'>
+                        <button onClick={() => handleNaviagtion('/generateposter')} className='uppercase text-white bg-[#0078B6] text-center w-full max-w-[260px] py-2 rounded-full font-semibold cursor-pointer'>
                             Generate Poster
                         </button>
                     </div>
