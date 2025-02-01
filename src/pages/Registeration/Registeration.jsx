@@ -1,7 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from "react";
 import { createRecord } from "@/utils/airtableService";
-import BackButton from '@/components/BackButton';
-import SuccesImg from '@/assets/succes.svg';
+import BackButton from "@/components/BackButton";
+import SuccesImg from "@/assets/succes.svg";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -30,8 +30,8 @@ import {
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { Check, ChevronsUpDown } from "lucide-react";
-import autoAnimate from '@formkit/auto-animate'
-import { toast } from "sonner"
+import autoAnimate from "@formkit/auto-animate";
+import { toast } from "sonner";
 import {
     Dialog,
     DialogContent,
@@ -39,18 +39,22 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/components/ui/dialog"
-import { useNavigate } from 'react-router-dom';
+} from "@/components/ui/dialog";
+import { useNavigate } from "react-router-dom";
 // Updated schema with phone number validation
 const formSchema = z.object({
-    Name: z.string().min(2, { message: "Name must be at least 2 characters" }).max(50, { message: "Name cannot exceed 50 characters" }),
-    PhoneNumber: z.string().min(10, { message: "Phone number must be at least 10 digits" })
+    Name: z
+        .string()
+        .min(2, { message: "Name must be at least 2 characters" })
+        .max(50, { message: "Name cannot exceed 50 characters" }),
+    PhoneNumber: z
+        .string()
+        .min(10, { message: "Phone number must be at least 10 digits" })
         .max(15, { message: "Phone number cannot exceed 15 digits" })
         .regex(/^\d+$/, { message: "Phone number must contain only numbers" }),
     Batch: z.string().min(1, { message: "Batch is required" }),
     Department: z.string().min(1, { message: "Department is required" }),
 });
-
 
 const department = [
     { value: "B.Sc Microbiology" },
@@ -59,29 +63,30 @@ const department = [
     { value: "B.Sc Computer Science" },
     { value: "B.A English" },
     { value: "B.A Economics" },
+    { value: "PDC / Pre Degree" },
+    { value: "PG" },
     { value: "Commerce" },
     { value: "BBA" },
-    { value: "B.Voc Logistics Management" },
-    { value: "B.Voc Professional Accounting and Taxation" },
+    { value: "B.Voc" },
     { value: "M.Sc Microbiology" },
     { value: "M.A English" },
     { value: "M.A Economics" },
-    { value: "M.Com" }
+    { value: "M.Com" },
 ];
 
 function generateYears(start, end) {
-    return Array.from({ length: end - start + 1 }, (_, i) => (start + i).toString());
+    return Array.from({ length: end - start + 1 }, (_, i) =>
+        (start + i).toString()
+    );
 }
-
-
 
 function Registration() {
     const [loading, setLoading] = useState(false);
-    const parent = useRef(null)
+    const parent = useRef(null);
     const [open, setOpen] = useState(false);
     const [BatchOpen, setBatchOpen] = useState(false);
     const [departmentOpen, setDepartmentOpen] = useState(false);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const handleDialog = () => {
         setOpen(!open);
@@ -96,8 +101,8 @@ function Registration() {
     };
 
     useEffect(() => {
-        parent.current && autoAnimate(parent.current)
-    }, [parent])
+        parent.current && autoAnimate(parent.current);
+    }, [parent]);
 
     const form = useForm({
         resolver: zodResolver(formSchema),
@@ -129,22 +134,25 @@ function Registration() {
     };
 
     const handleNaviagtion = (path) => {
-        navigate(path)
-    }
+        navigate(path);
+    };
     const handleJoinWhatsapp = () => {
-        const url = "https://whatsapp.com/channel/0029Vb4Bpa1EAKWGjU9LqI2u"
-        window.open(url, "_blank")
-    }
+        const url = "https://whatsapp.com/channel/0029Vb4Bpa1EAKWGjU9LqI2u";
+        window.open(url, "_blank");
+    };
 
     return (
         <div className="relative h-full flex-1 flex items-center justify-around flex-col w-full gap-10">
-            <div className='flex items-start justify-start w-full px-6 my-20'>
+            <div className="flex items-start justify-start w-full px-6 my-20">
                 <BackButton label="Registration" />
             </div>
-            <div className='bg-white p-6 w-full flex-grow' ref={parent}>
-
+            <div className="bg-white p-6 w-full flex-grow" ref={parent}>
                 <Form {...form} ref={parent}>
-                    <form onSubmit={form.handleSubmit(register)} className="space-y-4 w-full max-w-[350px] mx-auto" ref={parent}>
+                    <form
+                        onSubmit={form.handleSubmit(register)}
+                        className="space-y-4 w-full max-w-[350px] mx-auto"
+                        ref={parent}
+                    >
                         {/* Name Field */}
                         <FormField
                             control={form.control}
@@ -153,7 +161,11 @@ function Registration() {
                                 <FormItem ref={parent}>
                                     <FormLabel>Name</FormLabel>
                                     <FormControl>
-                                        <Input className="!pl-6 !rounded-full !bg-[#DEEEF7] placeholder:text-gray-400 !outline-none !ring-0 !border-[#185273]" placeholder="Full Name" {...field} />
+                                        <Input
+                                            className="!pl-6 !rounded-full !bg-[#DEEEF7] placeholder:text-gray-400 !outline-none !ring-0 !border-[#185273]"
+                                            placeholder="Full Name"
+                                            {...field}
+                                        />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -167,8 +179,12 @@ function Registration() {
                             render={({ field }) => (
                                 <FormItem ref={parent}>
                                     <FormLabel>Phone Number</FormLabel>
-                                    <FormControl >
-                                        <Input className="!pl-6 !rounded-full !bg-[#DEEEF7] placeholder:text-gray-400 !outline-none !ring-0 !border-[#185273]" placeholder="Mobile Number" {...field} />
+                                    <FormControl>
+                                        <Input
+                                            className="!pl-6 !rounded-full !bg-[#DEEEF7] placeholder:text-gray-400 !outline-none !ring-0 !border-[#185273]"
+                                            placeholder="Mobile Number"
+                                            {...field}
+                                        />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -181,14 +197,13 @@ function Registration() {
                             name="Batch"
                             render={({ field }) => (
                                 <FormItem ref={parent}>
-                                    <FormLabel>Pass out year</FormLabel>
+                                    <FormLabel>Year joined</FormLabel>
                                     <Popover open={BatchOpen} onOpenChange={handleBatchOpen}>
                                         <PopoverTrigger asChild>
                                             <FormControl>
                                                 <Button
                                                     variant="outline"
                                                     role="combobox"
-
                                                     className={cn(
                                                         "w-full !pl-6 !rounded-full !bg-[#DEEEF7] !text-black placeholder:text-gray-400 !outline-none !ring-0 !border-[#185273] justify-between",
                                                         !field.value && "text-muted-foreground"
@@ -242,7 +257,10 @@ function Registration() {
                             render={({ field }) => (
                                 <FormItem ref={parent}>
                                     <FormLabel>Department</FormLabel>
-                                    <Popover open={departmentOpen} onOpenChange={handleDepartmentOpen}>
+                                    <Popover
+                                        open={departmentOpen}
+                                        onOpenChange={handleDepartmentOpen}
+                                    >
                                         <PopoverTrigger asChild>
                                             <FormControl>
                                                 <Button
@@ -293,44 +311,50 @@ function Registration() {
                                 </FormItem>
                             )}
                         />
-                        <div className='mx-auto mt-8 flex items-center justify-center'>
-                            <Button type="submit" className="uppercase !text-white !bg-[#0078B6] !text-center !mx-auto !w-full !max-w-[340px] !py-4 !rounded-full !font-semibold !cursor-pointer disabled:!bg-[#0078B6]/70 !h-[40px] transition-all ease-in-out hover:bg-[#0078B6]/70 hover:shadow-lg" disabled={loading}>
+                        <div className="mx-auto mt-8 flex items-center justify-center">
+                            <Button
+                                type="submit"
+                                className="uppercase !text-white !bg-[#0078B6] !text-center !mx-auto !w-full !max-w-[340px] !py-4 !rounded-full !font-semibold !cursor-pointer disabled:!bg-[#0078B6]/70 !h-[40px] transition-all ease-in-out hover:bg-[#0078B6]/70 hover:shadow-lg"
+                                disabled={loading}
+                            >
                                 {loading ? "Creating..." : "Register Now"}
                             </Button>
                         </div>
-
                     </form>
                 </Form>
             </div>
-
 
             <Dialog open={open} onOpenChange={handleDialog}>
                 <DialogContent className="">
                     <DialogHeader>
                         <DialogTitle>
-                            <div className='flex items-center justify-center flex-col'>
-                                <img src={SuccesImg} className='mx-auto' />
-                                <h1 className='text-center text-2xl font-semibold text-black '>Congratulations</h1>
+                            <div className="flex items-center justify-center flex-col">
+                                <img src={SuccesImg} className="mx-auto" />
+                                <h1 className="text-center text-2xl font-semibold text-black ">
+                                    Congratulations
+                                </h1>
                             </div>
                         </DialogTitle>
                         <DialogDescription>
-                            Youre successfully Registred for
-                            Global Alumni Meet 2025
+                            Youre successfully Registred for Global Alumni Meet 2025
                         </DialogDescription>
                     </DialogHeader>
-                    <div className='flex flex-col gap-4 items-center justify-center my-8 w-full'>
-                        <button onClick={() => handleJoinWhatsapp()} className='uppercase text-white bg-[#0078B6] text-center w-full max-w-[260px] py-2 rounded-full font-semibold cursor-pointer transition-all ease-in-out hover:bg-[#0078B6]/70 hover:shadow-lg'>
+                    <div className="flex flex-col gap-4 items-center justify-center my-8 w-full">
+                        <button
+                            onClick={() => handleJoinWhatsapp()}
+                            className="uppercase text-white bg-[#0078B6] text-center w-full max-w-[260px] py-2 rounded-full font-semibold cursor-pointer transition-all ease-in-out hover:bg-[#0078B6]/70 hover:shadow-lg"
+                        >
                             join whatsapp
                         </button>
-                        <button onClick={() => handleNaviagtion('/generateposter')} className='uppercase text-white bg-[#0078B6] text-center w-full max-w-[260px] py-2 rounded-full font-semibold cursor-pointer transition-all ease-in-out hover:bg-[#0078B6]/70 hover:shadow-lg'>
+                        <button
+                            onClick={() => handleNaviagtion("/generateposter")}
+                            className="uppercase text-white bg-[#0078B6] text-center w-full max-w-[260px] py-2 rounded-full font-semibold cursor-pointer transition-all ease-in-out hover:bg-[#0078B6]/70 hover:shadow-lg"
+                        >
                             Generate Poster
                         </button>
                     </div>
                 </DialogContent>
             </Dialog>
-
-
-
         </div>
     );
 }
