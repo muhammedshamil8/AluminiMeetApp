@@ -44,60 +44,50 @@ function GeneratePoster() {
 
     const handleDownload = () => {
         const poster = document.getElementById('posterID');
-        const rotatedElement = document.querySelector(".handwriting");
-        rotatedElement.style.transform = "rotate(-3deg)";
-        const rotatedElement2 = document.querySelector(".handwriting2");
-        rotatedElement2.style.transform = "rotate(-3deg)";
-        html2canvas(poster,
-            {
-                scale: 5,
-                useCORS: true
-            }).then((canvas) => {
-                const imageUrl = canvas.toDataURL('image/png');
-                const link = document.createElement('a');
-                link.href = imageUrl;
-                if (name) {
-                    link.download = `${name}_poster.png`;
-                } else {
-                    link.download = 'poster.png';
-                }
-                link.click();
-            });
+        html2canvas(poster, {
+            scale: 5,
+            useCORS: true
+        }).then((canvas) => {
+            const imageUrl = canvas.toDataURL('image/png');
+            const link = document.createElement('a');
+            link.href = imageUrl;
+            if (name) {
+                link.download = `${name}_poster.png`;
+            } else {
+                link.download = 'poster.png';
+            }
+            link.click();
+        });
     };
-
+    
     const handleShare = async () => {
         const poster = document.getElementById('posterID');
-        const rotatedElement = document.querySelector(".handwriting");
-        rotatedElement.style.transform = "rotate(-3.5deg)";
-        const rotatedElement2 = document.querySelector(".handwriting2");
-        rotatedElement2.style.transform = "rotate(-0.1deg)";
-        html2canvas(poster,
-            {
-                scale: 5,
-                useCORS: true
-            }).then((canvas) => {
-                canvas.toBlob(async (blob) => {
-                    if (!blob) return;
-
-                    const file = new File([blob], 'poster.png', { type: 'image/png' });
-
-                    if (navigator.share) {
-                        try {
-                            await navigator.share({
-                                title: "Alumini Meet",
-                                url: 'https://alumini-meet-app-theta.vercel.app/',
-                                text: "Check out the poster I created on Alumini Meet",
-                                files: [file],
-                            });
-                        } catch (err) {
-                            console.error('Error sharing:', err);
-                        }
-                    } else {
-                        console.warn('Web Share API not supported or file sharing not supported');
-                        alert('Sorry, file sharing is not supported on your device please download the image and share it manually');
+        html2canvas(poster, {
+            scale: 5,
+            useCORS: true
+        }).then((canvas) => {
+            canvas.toBlob(async (blob) => {
+                if (!blob) return;
+    
+                const file = new File([blob], 'poster.png', { type: 'image/png' });
+    
+                if (navigator.share) {
+                    try {
+                        await navigator.share({
+                            title: "Alumini Meet",
+                            url: 'https://alumini-meet-app-theta.vercel.app/',
+                            text: "Check out the poster I created on Alumini Meet",
+                            files: [file],
+                        });
+                    } catch (err) {
+                        console.error('Error sharing:', err);
                     }
-                });
+                } else {
+                    console.warn('Web Share API not supported or file sharing not supported');
+                    alert('Sorry, file sharing is not supported on your device please download the image and share it manually');
+                }
             });
+        });
     };
 
     return (
@@ -119,14 +109,14 @@ function GeneratePoster() {
                             <img
                                 src={croppedImage}
                                 alt="Cropped"
-                                className="w-full h-[120px]  object-cover rounded-md !-rotate-[3.6deg] handwriting2"
+                                className="uploaded-image rounded-md  handwriting2 "
                             />
 
                         </div>
 
                     )}
 
-                    <p style={{overflowWrap: 'anywhere'}} className={`!-rotate-[3.7deg] text-center leading-4 max-w-[100px] handwriting absolute top-[73%] left-[29.5%] transform -translate-x-1/2 -translate-y-1/2  ${name.length > 10 ? 'text-[9px]' : 'text-sm'}`}>{name}</p>
+                    <p style={{overflowWrap: 'anywhere'}} className={` text-center leading-4 max-w-[100px] handwriting absolute top-[73%] left-[29.5%] transform -translate-x-1/2 -translate-y-1/2  ${name.length > 10 ? 'text-[9px]' : 'text-sm'}`}>{name}</p>
 
                 </div>
 

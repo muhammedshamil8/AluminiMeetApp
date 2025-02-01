@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Slider } from '../ui/slider';
 
 function ImageCropper({ image, onSave, onClose }) {
-  const [cropData, setCropData] = useState({ crop: { x: 0, y: 0 }, zoom: 1, aspect: 4/5 });
+  const [cropData, setCropData] = useState({ crop: { x: 0, y: 0 }, zoom: 1, aspect: 117/128 });
   const cropperRef = useRef(null);
 
   const handleCropComplete = (_, croppedAreaPixels) => {

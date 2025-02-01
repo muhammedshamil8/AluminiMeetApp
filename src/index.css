@@ -9,6 +9,7 @@
 
 .handwriting{
   font-family: "Playwrite IN", serif;
+  transform: rotate(-3.6deg);
 }
 
 @layer base {
@@ -16,3 +17,12 @@
     @apply inline-block;
   }
 }
+
+
+.uploaded-image {
+  transform: rotate(-3.7deg);
+  height: 117px;
+  width: 128px;
+  object-fit: cover;
+}
+
