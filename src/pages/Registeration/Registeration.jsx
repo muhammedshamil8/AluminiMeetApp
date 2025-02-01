@@ -64,7 +64,6 @@ const department = [
     { value: "B.A English" },
     { value: "B.A Economics" },
     { value: "PDC / Pre Degree" },
-    { value: "PG" },
     { value: "Commerce" },
     { value: "BBA" },
     { value: "B.Voc" },
