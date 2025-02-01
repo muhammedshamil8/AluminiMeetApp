@@ -45,9 +45,9 @@ function GeneratePoster() {
     const handleDownload = () => {
         const poster = document.getElementById('posterID');
         const rotatedElement = document.querySelector(".handwriting");
-        rotatedElement.style.transform = "rotate(-3.5deg)";
+        rotatedElement.style.transform = "rotate(-3deg)";
         const rotatedElement2 = document.querySelector(".handwriting2");
-        rotatedElement2.style.transform = "rotate(-0.1deg)";
+        rotatedElement2.style.transform = "rotate(-3deg)";
         html2canvas(poster,
             {
                 scale: 5,
@@ -126,7 +126,7 @@ function GeneratePoster() {
 
                     )}
 
-                    <p className={`!-rotate-[3.7deg] handwriting absolute top-[73%] left-[29.5%] transform -translate-x-1/2 -translate-y-1/2  ${name.length > 10 ? 'text-[8px]' : 'text-sm'} md:text-base `}>{name}</p>
+                    <p style={{overflowWrap: 'anywhere'}} className={`!-rotate-[3.7deg] text-center leading-4 max-w-[100px] handwriting absolute top-[73%] left-[29.5%] transform -translate-x-1/2 -translate-y-1/2  ${name.length > 10 ? 'text-[9px]' : 'text-sm'}`}>{name}</p>
 
                 </div>
 

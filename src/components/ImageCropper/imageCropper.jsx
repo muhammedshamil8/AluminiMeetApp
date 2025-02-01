@@ -84,10 +84,10 @@ function ImageCropper({ image, onSave, onClose }) {
 
         </div>
         <div className="mt-4 flex justify-end w-full">
-          <Button onClick={handleSave} className="mr-2">
+          <Button onClick={handleSave} className="mr-2 !text-white !bg-[#0078B6] text-center  font-semibold cursor-pointer transition-all ease-in-out hover:!bg-[#0078B6]/70 hover:shadow-lg">
             Save
           </Button>
-          <Button variant="ghost" onClick={onClose}>
+          <Button variant="ghost" onClick={onClose} className="shadow cursor-pointer">
             Cancel
           </Button>
         </div>

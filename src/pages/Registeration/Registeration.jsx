@@ -52,31 +52,22 @@ const formSchema = z.object({
 });
 
 
-const batches = ["Batch A", "Batch B", "Batch C", "Batch D"];
-const department =
-[
-    {
-        "value": "PDC / Pre Degree"
-    },
-    {
-        "value": "Commerce"
-    },
-    {
-        "value": "BBA"
-    },
-    {
-        "value": "BA (All Departments)"
-    },
-    {
-        "value": "BSc (All Departments)"
-    },
-    {
-        "value": "BVoc (All Departments)"
-    },
-    {
-        "value": "PG"
-    }
-]
+const department = [
+    { value: "B.Sc Microbiology" },
+    { value: "B.Sc Biochemistry" },
+    { value: "B.Sc Biotechnology" },
+    { value: "B.Sc Computer Science" },
+    { value: "B.A English" },
+    { value: "B.A Economics" },
+    { value: "Commerce" },
+    { value: "BBA" },
+    { value: "B.Voc Logistics Management" },
+    { value: "B.Voc Professional Accounting and Taxation" },
+    { value: "M.Sc Microbiology" },
+    { value: "M.A English" },
+    { value: "M.A Economics" },
+    { value: "M.Com" }
+];
 
 function generateYears(start, end) {
     return Array.from({ length: end - start + 1 }, (_, i) => (start + i).toString());
@@ -88,10 +79,20 @@ function Registration() {
     const [loading, setLoading] = useState(false);
     const parent = useRef(null)
     const [open, setOpen] = useState(false);
+    const [BatchOpen, setBatchOpen] = useState(false);
+    const [departmentOpen, setDepartmentOpen] = useState(false);
     const navigate = useNavigate()
 
     const handleDialog = () => {
         setOpen(!open);
+    };
+
+    const handleBatchOpen = () => {
+        setBatchOpen(!BatchOpen);
+    };
+
+    const handleDepartmentOpen = () => {
+        setDepartmentOpen(!departmentOpen);
     };
 
     useEffect(() => {
@@ -181,7 +182,7 @@ function Registration() {
                             render={({ field }) => (
                                 <FormItem ref={parent}>
                                     <FormLabel>Pass out year</FormLabel>
-                                    <Popover>
+                                    <Popover open={BatchOpen} onOpenChange={handleBatchOpen}>
                                         <PopoverTrigger asChild>
                                             <FormControl>
                                                 <Button
@@ -207,8 +208,10 @@ function Registration() {
                                                         {generateYears(1982, 2024).map((batch) => (
                                                             <CommandItem
                                                                 key={batch}
+                                                                className="cursor-pointer "
                                                                 onSelect={() => {
                                                                     form.setValue("Batch", batch);
+                                                                    handleBatchOpen();
                                                                 }}
                                                             >
                                                                 {batch}
@@ -239,7 +242,7 @@ function Registration() {
                             render={({ field }) => (
                                 <FormItem ref={parent}>
                                     <FormLabel>Department</FormLabel>
-                                    <Popover>
+                                    <Popover open={departmentOpen} onOpenChange={handleDepartmentOpen}>
                                         <PopoverTrigger asChild>
                                             <FormControl>
                                                 <Button
@@ -263,9 +266,11 @@ function Registration() {
                                                     <CommandGroup>
                                                         {department.map((department) => (
                                                             <CommandItem
+                                                                className="cursor-pointer max-w-[340px] overflow-ellipsis"
                                                                 key={department.value}
                                                                 onSelect={() => {
                                                                     form.setValue("Department", department.value);
+                                                                    handleDepartmentOpen();
                                                                 }}
                                                             >
                                                                 {department.value}
