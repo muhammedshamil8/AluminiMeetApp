@@ -75,7 +75,7 @@ function GeneratePoster() {
                     try {
                         await navigator.share({
                             title: "Alumini Meet",
-                            url: 'https://alumini-meet-app-theta.vercel.app/',
+                            url: 'https://osaemea.in/',
                             text: "Check out the poster I created on Alumini Meet",
                             files: [file],
                         });

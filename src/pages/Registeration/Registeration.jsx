@@ -63,7 +63,7 @@ const department = [
     { value: "B.Sc Computer Science" },
     { value: "B.A English" },
     { value: "B.A Economics" },
-    { value: "B.A WAS" },
+    { value: "B.A West Asian Studies" },
     { value: "PDC / Pre Degree" },
     { value: "Commerce" },
     { value: "BBA" },
