@@ -1,5 +1,5 @@
 import React from 'react'
-import Background from '@/assets/background.svg'
+import Background from '@/assets/background.webp'
 import { Outlet } from 'react-router-dom'
 import Connect from '@/assets/connect.svg'
 import BottomElement from '@/assets/elementbottom.svg'

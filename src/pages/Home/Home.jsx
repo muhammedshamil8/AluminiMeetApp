@@ -1,5 +1,5 @@
 import React from 'react'
-import Hero from '@/assets/hero.svg'
+import Hero from '@/assets/hero.webp'
 import TopElement from '@/assets/elementtop.svg'
 import { useNavigate } from 'react-router-dom'
 
