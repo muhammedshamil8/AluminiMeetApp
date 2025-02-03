@@ -25,9 +25,9 @@ function GeneratePoster() {
         const file = event.target.files[0];
         if (file) {
             const fileSizeInMB = file.size / (1024 * 1024);
-            if (fileSizeInMB > 1) {
+            if (fileSizeInMB > 10) {
                 toast.warning(
-                    "The selected file is larger than 1MB. Please choose a smaller file."
+                    "The selected file is larger than 10MB. Please choose a smaller file."
                 );
                 event.target.value = "";
                 return;
